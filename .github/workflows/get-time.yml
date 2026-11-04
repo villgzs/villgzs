@@ -1,0 +1,30 @@
+name: Get Current Time
+
+on:
+  workflow_call:          # ← ez teszi meghívhatóvá
+    outputs:
+      current_time:
+        description: "Aktuális UTC idő"
+        value: ${{ jobs.get_time.outputs.current_time }}
+
+jobs:
+  get_time:
+    runs-on: ubuntu-latest
+    outputs:
+      current_time: ${{ steps.time.outputs.time }}
+    steps:
+      - name: Aktuális idő kiírása
+        id: time
+        run: |
+          CURRENT_TIME=$(curl -s https://worldtime.timezone.io/api/timezone/Etc/UTC | sed -n 's/.*"datetime":"\([^"]*\)".*/\1/p')
+          
+          if [ -z "$CURRENT_TIME" ]; then
+            echo "Nem sikerült lekérni az időt"
+            exit 1
+          fi
+
+          echo "Aktuális UTC idő: $CURRENT_TIME"
+          echo "time=$CURRENT_TIME" >> $GITHUB_OUTPUT
+          
+          echo "### Futás Összegzés" >> $GITHUB_STEP_SUMMARY
+          echo "- **Aktuális UTC idő:** $CURRENT_TIME" >> $GITHUB_STEP_SUMMARY
