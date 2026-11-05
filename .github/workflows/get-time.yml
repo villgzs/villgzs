@@ -28,6 +28,6 @@ jobs:
           echo " Current UTC time: $CURRENT_TIME"
           echo "time=$CURRENT_TIME" >> $GITHUB_OUTPUT
           
-          echo "### Run Summary" >> $GITHUB_STEP_SUMMARY
-          echo " - **Current UTC time:** $CURRENT_TIME" >> $GITHUB_STEP_SUMMARY
+          echo "Run Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Current UTC time:** $CURRENT_TIME" >> $GITHUB_STEP_SUMMARY
           echo "---" >> $GITHUB_STEP_SUMMARY
