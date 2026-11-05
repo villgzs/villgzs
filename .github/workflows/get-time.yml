@@ -16,7 +16,7 @@ jobs:
       - name: Print current time
         id: time
         run: |
-          echo "---" >> $GITHUB_OUTPUT
+          echo "---" >> $GITHUB_STEP_SUMMARY
           CURRENT_TIME=$(curl -s https://worldtime.timezone.io/api/timezone/Etc/UTC | sed -n 's/.*"datetime":"\([^"]*\)".*/\1/p')
           
           if [ -z "$CURRENT_TIME" ]; then
@@ -29,4 +29,4 @@ jobs:
           
           echo "### Run Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Current UTC time:** $CURRENT_TIME" >> $GITHUB_STEP_SUMMARY
-          echo "---" >> $GITHUB_OUTPUT
+          echo "---" >> $GITHUB_STEP_SUMMARY
